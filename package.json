@@ -11,7 +11,8 @@
   },
   "scripts": {
     "build": "tsup",
-    "test": "tsx test"
+    "test": "tsx test",
+    "lint": "tsc"
   },
   "keywords": [
     "console",
