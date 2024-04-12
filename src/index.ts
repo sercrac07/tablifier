@@ -1,1 +1,1 @@
-export * from '.'
+export { Table } from '&/table'
