@@ -1,0 +1,27 @@
+{
+  "name": "emcm",
+  "description": "Even More Console Methods.",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Oigres07/emcm"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "tsx test"
+  },
+  "keywords": [
+    "console",
+    "log"
+  ],
+  "author": "oigres07",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.12.5",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}
