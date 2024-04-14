@@ -1,5 +1,5 @@
 {
-  "name": "emcm",
+  "name": "tableit",
   "description": "Even More Console Methods.",
   "version": "0.0.1",
   "main": "dist/index.js",
@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Oigres07/emcm"
+    "url": "https://github.com/Oigres07/tableit"
   },
   "scripts": {
     "build": "tsup",
@@ -16,7 +16,7 @@
   },
   "keywords": [
     "console",
-    "log"
+    "table"
   ],
   "author": "oigres07",
   "license": "MIT",

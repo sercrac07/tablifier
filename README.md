@@ -1,16 +1,14 @@
-# EMCM
+# TableIt
 
-Even More Console methods.
+Let's you create tables and convert them into strings.
 
 ## Instalation
 
 ```bash
-npm install emcm
+npm install tableit
 ```
 
 ## Usage
-
-### Table
 
 You can get a table by using the `Table` class.
 
