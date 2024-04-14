@@ -1,11 +1,11 @@
-# TableIt
+# Tablifier
 
 Let's you create tables and convert them into strings.
 
 ## Instalation
 
 ```bash
-npm install tableit
+npm install tablifier
 ```
 
 ## Usage
@@ -13,6 +13,8 @@ npm install tableit
 You can get a table by using the `Table` class.
 
 ```javascript
+import { Table } from 'tablifier'
+
 const table = new Table()
 table.addRow('This is the key', 'This is the value')
 
