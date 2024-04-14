@@ -1,6 +1,6 @@
 {
   "name": "tableit",
-  "description": "Even More Console Methods.",
+  "description": "Let's you create tables and convert them into strings.",
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
