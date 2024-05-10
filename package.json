@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Oigres07/tablifier"
+    "url": "https://github.com/sercrac07/tablifier"
   },
   "scripts": {
     "build": "tsup",
@@ -18,7 +18,7 @@
     "console",
     "table"
   ],
-  "author": "oigres07",
+  "author": "sercrac07",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.12.5",
