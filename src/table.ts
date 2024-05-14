@@ -1,5 +1,6 @@
-import { getLargestLength } from '&/lib/strings'
-import { Row } from '&/types'
+import { allNumSum } from './lib/array'
+import { Symbols } from './lib/consts'
+import { getLargestLength } from './lib/strings'
 
 /**
  * Create a new table.
@@ -10,9 +11,8 @@ import { Row } from '&/types'
  * ```
  */
 export class Table {
-  key: string = 'key'
-  value: string = 'value'
-  rows: Row[] = []
+  keys: string[] = []
+  rows: string[][] = []
 
   /**
    * Create the table. You can pass the key and value title as parameters.
@@ -21,9 +21,8 @@ export class Table {
    * const table = new Table('Key title', 'Value title')
    * ```
    */
-  constructor(key?: string, value?: string) {
-    this.key = key ?? 'key'
-    this.value = value ?? 'value'
+  constructor(...keys: string[]) {
+    this.keys.push(...keys)
   }
 
   /**
@@ -34,8 +33,8 @@ export class Table {
    * table.addRow('Second key', 'Second value')
    * ```
    */
-  addRow(key: string, value: string): Table {
-    this.rows.push({ key, value })
+  addRow(...values: string[]): Table {
+    this.rows.push(values)
     return this
   }
 
@@ -57,14 +56,26 @@ export class Table {
   toString(): string {
     let output: string = ''
 
-    const kLength = getLargestLength([...this.rows.map(row => row.key)].concat(this.key)) + 1
-    const vLength = getLargestLength([...this.rows.map(row => row.value)].concat(this.value)) + 1
+    const lengths: number[] = []
 
-    output += `┌${'─'.repeat(kLength)}┬${'─'.repeat(vLength)}┐\n│${this.key.padEnd(kLength, ' ')}│${this.value.padEnd(vLength, ' ')}│`
+    this.keys.forEach((key, index) => {
+      const length = getLargestLength([key, ...this.rows.map(row => row[index])])
+      lengths.push(length)
+    })
 
-    this.rows.forEach(row => (output += `\n├${'─'.repeat(kLength)}┼${'─'.repeat(vLength)}┤\n│${row.key.padEnd(kLength, ' ')}│${row.value.padEnd(vLength, ' ')}│`))
+    output += `${Symbols.TopLeft}${this.keys.map((_, index) => `${Symbols.LineHorizontal.repeat(lengths[index])}`).join(Symbols.HorizontalTopBreak)}${Symbols.TopRight}\n`
+    output += `${Symbols.LineVertical}${this.keys.map((key, index) => `${key.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`
+    output += `${Symbols.VerticalLeftBreak}${this.keys.map((_, index) => `${Symbols.LineHorizontal.repeat(lengths[index])}`).join(Symbols.Middle)}${Symbols.VerticalRightBreak}\n`
 
-    output += `\n└${'─'.repeat(kLength)}┴${'─'.repeat(vLength)}┘`
+    output += `${this.rows
+      .map((row, index) => {
+        if (this.keys[index] === undefined) return
+        else return `${Symbols.LineVertical}${row.map((r, index) => `${r.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`
+      })
+      .filter(row => row !== undefined)
+      .join(`${Symbols.LineVertical}${this.keys.map((_, index) => `${' '.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`)}`
+
+    output += `${Symbols.BottomLeft}${this.keys.map((_, index) => `${Symbols.LineHorizontal.repeat(lengths[index])}`).join(Symbols.HorizontalBottomBreak)}${Symbols.BottomRight}`
 
     return output
   }
