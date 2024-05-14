@@ -3,10 +3,10 @@ import { Symbols } from './lib/consts'
 import { getLargestLength } from './lib/strings'
 
 /**
- * Create a new table.
+ * The `Table` function facilitates the creation of customizable tables, offering users the ability to define table headers and add rows dynamically.
  *
  * ```javascript
- * const table = new Table()
+ * const table = new Table('key', 'value')
  * table.addRow('This is the key', 'This is the value')
  * ```
  */
@@ -15,7 +15,7 @@ export class Table {
   rows: string[][] = []
 
   /**
-   * Create the table. You can pass the key and value title as parameters.
+   * Initializes a new table instance with the provided header configuration.
    *
    * ```
    * const table = new Table('Key title', 'Value title')
@@ -26,7 +26,7 @@ export class Table {
   }
 
   /**
-   * Adds a row to the table.
+   * By supplying the `addRow` function with the desired row data, users can effortlessly incorporate new information into their table structure.
    *
    * ```javascript
    * table.addRow('First key', 'First value')
@@ -39,18 +39,18 @@ export class Table {
   }
 
   /**
-   * Returns the table as a string.
+   * Returns a string representation of the table.
    *
    * ```javascript
    * console.log(table.toString())
    * // output:
-   * // ┌───────────┬─────────────┐
-   * // │Key title  │Value title  │
-   * // ├───────────┼─────────────┤
-   * // │First key  │First value  │
-   * // ├───────────┼─────────────┤
-   * // │Second key │Second value │
-   * // └───────────┴─────────────┘
+   * // ┌──────────┬────────────┐
+   * // │Key title │Value title │
+   * // ├──────────┼────────────┤
+   * // │First key │First value │
+   * // ├──────────┼────────────┤
+   * // │Second key│Second value│
+   * // └──────────┴────────────┘
    * ```
    */
   toString(): string {
@@ -59,7 +59,7 @@ export class Table {
     const lengths: number[] = []
 
     this.keys.forEach((key, index) => {
-      const length = getLargestLength([key, ...this.rows.map(row => row[index])])
+      const length = getLargestLength([key, ...this.rows.map(row => row[index] ?? '')])
       lengths.push(length)
     })
 
@@ -68,9 +68,14 @@ export class Table {
     output += `${Symbols.VerticalLeftBreak}${this.keys.map((_, index) => `${Symbols.LineHorizontal.repeat(lengths[index])}`).join(Symbols.Middle)}${Symbols.VerticalRightBreak}\n`
 
     output += `${this.rows
-      .map((row, index) => {
-        if (this.keys[index] === undefined) return
-        else return `${Symbols.LineVertical}${row.map((r, index) => `${r.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`
+      .map(row => {
+        const show: string[] = []
+
+        this.keys.forEach((_, index) => {
+          show.push(row[index] ?? '')
+        })
+
+        return `${Symbols.LineVertical}${show.map((r, index) => `${r.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`
       })
       .filter(row => row !== undefined)
       .join(`${Symbols.LineVertical}${this.keys.map((_, index) => `${' '.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`)}`
@@ -80,3 +85,5 @@ export class Table {
     return output
   }
 }
+
+;(9).toString
