@@ -48,7 +48,6 @@ export class Table {
    * // │Key title │Value title │
    * // ├──────────┼────────────┤
    * // │First key │First value │
-   * // ├──────────┼────────────┤
    * // │Second key│Second value│
    * // └──────────┴────────────┘
    * ```
@@ -75,10 +74,10 @@ export class Table {
           show.push(row[index] ?? '')
         })
 
-        return `${Symbols.LineVertical}${show.map((r, index) => `${r.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`
+        return `${Symbols.LineVertical}${show.map((r, index) => `${r.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}`
       })
       .filter(row => row !== undefined)
-      .join(`${Symbols.LineVertical}${this.keys.map((_, index) => `${' '.padEnd(lengths[index], ' ')}`).join(Symbols.LineVertical)}${Symbols.LineVertical}\n`)}`
+      .join('\n')}\n`
 
     output += `${Symbols.BottomLeft}${this.keys.map((_, index) => `${Symbols.LineHorizontal.repeat(lengths[index])}`).join(Symbols.HorizontalBottomBreak)}${Symbols.BottomRight}`
 
