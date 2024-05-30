@@ -84,5 +84,3 @@ export class Table {
     return output
   }
 }
-
-;(9).toString
