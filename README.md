@@ -25,4 +25,8 @@ console.log(table.toString())
 // ├───────────────┼─────────────────┤
 // │This is the key│This is the value│
 // └───────────────┴─────────────────┘
+
+console.log(table.toJSON())
+// output:
+// [{ key: 'This is the key', value: 'This is the value' }]
 ```
