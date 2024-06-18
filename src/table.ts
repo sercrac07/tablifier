@@ -1,20 +1,34 @@
-import { allNumSum } from './lib/array'
 import { Symbols } from './lib/consts'
 import { getLargestLength } from './lib/strings'
+import { Nullish } from './types'
 
 /** The `Table` class facilitates the creation of customizable tables, offering users the ability to define table headers and add rows dynamically. */
 export class Table<T extends string> {
   private keys: T[] = []
-  private rows: (string | undefined)[][] = []
+  private rows: (undefined | string)[][] = []
 
   /** Initializes a new table instance with the provided header configuration. */
   constructor(...keys: T[]) {
-    this.keys.push(...keys)
+    const thisKeys = keys.map(val => {
+      if (typeof val === 'string') return val
+      else if (typeof val === 'number' || typeof val === 'bigint' || typeof val === 'boolean') return String(val)
+      else if (typeof val === 'object') return JSON.stringify(val)
+      else throw new TypeError('Key must be a string')
+    })
+    this.keys.push(...(thisKeys as any))
   }
 
   /** By supplying the `addRow` function with the desired row data, users can effortlessly incorporate new information into their table structure. */
-  addRow(...values: (string | undefined)[]): this {
-    this.rows.push(values)
+  addRow(...values: Nullish<string>[]): this {
+    const thisValues = values.map(val => {
+      if (typeof val === 'string') return val
+      else if (val === null || val === undefined) return undefined
+      else if (typeof val === 'number' || typeof val === 'bigint' || typeof val === 'boolean') return String(val)
+      else if (typeof val === 'object') return JSON.stringify(val)
+      else throw new TypeError('Value must be a string')
+    })
+
+    this.rows.push(thisValues)
     return this
   }
 
